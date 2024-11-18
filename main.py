@@ -36,7 +36,10 @@ def load_image(path, size_x=0, size_y=0):
     image = pygame.transform.scale(image, (size_x, size_y))
 
     return image, image.get_rect()
-
+   
+def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
+  #image list
+  images = []
 
 def Start_Game():
   run = True
