@@ -14,6 +14,30 @@ clock = pygame.time.Clock()
 FPS = 30
 #Possible audio later
 
+def draw_text(text, font_name, size, text_color, position_x, position_y, position):
+
+  font = pygame.font.Font(font_name, size)  # loads font
+
+  text_plane = font.render(text, True, text_color)  # renders text in the selected font
+  text_rect = text_plane.get_rect()
+
+  # setting text position
+  if position == "midtop":
+      text_rect.midtop = (int(position_x), int(position_y))
+  elif position == "topright":
+      text_rect.topright = (int(position_x), int(position_y))
+
+  window.blit(text_plane, text_rect)  # draws the text on the screen
+
+def load_image(path, size_x=0, size_y=0):
+   image = pygame.image.load(path).convert_alpha()
+
+   if size_x > 0 and size_y > 0:
+    image = pygame.transform.scale(image, (size_x, size_y))
+
+    return image, image.get_rect()
+
+
 def Start_Game():
   run = True
   play_again = False
