@@ -1,5 +1,13 @@
 import pygame
 from pygame.locals import *
+import os
+# to-do: sys.exit() when exiting game
+# Put in main gameplay loop later
+import sys
+import random
+
+# Something I found that places window in center of display
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
