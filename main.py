@@ -112,6 +112,7 @@ def Start_Game():
   game_over = False
   # Game speed later
   
+  # Main gameplay loop.
   while run:
     clock.tick(FPS)
     
