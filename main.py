@@ -11,6 +11,7 @@ from tree import Tree
 from hawk import Hawk
 from background import Background
 from allBackgrounds import AllBackgrounds
+
 # Something I found that places window in center of display
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
