@@ -40,6 +40,17 @@ def load_image(path, size_x=0, size_y=0):
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
   images = []
+  
+  for i in range(0, number_of_image):
+    path = image_path + image_name_prefix + str(i) + '.png' # Gets image path, takes image name, and puts extension into string
+    image = pygame.image.load(path).convert_alpha
+    
+    if size_x > 0 and size_y > 0:
+      image = pygame.transform.scale(image, (size_x, size_y)) # Resizes image to given size
+      
+    images.append(image)
+  
+  return images
 
 def Start_Game():
   run = True
