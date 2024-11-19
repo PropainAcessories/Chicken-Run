@@ -9,8 +9,8 @@ import random
 from chicken import Chicken
 from tree import Tree
 from hawk import Hawk
-from background import Background
-from allBackgrounds import AllBackgrounds
+
+
 
 
 # Something I found that places window in center of display
@@ -67,6 +67,61 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
     images.append(image)
   
   return images
+
+class Background:
+    
+  def __init__(self, image_path, speed = 10):
+    
+    self.image0, self.rect0 = load_image(image_path, 1280, 720)
+    self.image1, self.rect1 = load_image(image_path, 1280, 720)
+    
+    self.rect0.bottom = SCREEN_HEIGHT
+    self.rect1.bottom = SCREEN_HEIGHT
+    
+    self.rect1.left = self.rect0.right
+    
+    self.speed = speed
+    
+  def draw(self):
+    window.blit(self.image0, self.rect0)
+    window.blit(self.image1, self.rect1)
+      
+  def update(self):
+    self.rect0.left -= int(self.speed)
+    self.rect1.left -= int(self.speed)
+      
+    if self.rect0.right < 0:
+      self.rect0.left = self.rect1.right
+        
+    if self.rect1.right < 0:
+      self.rect1.left = self.rect0.right
+
+
+class AllBackgrounds:
+  
+  def __init__(self, game_speed):
+        self.background_0 = Background("Assets/Background/Background-0.png", game_speed)
+        self.background_1 = Background("Assets/Background/Background-1.png", game_speed - 12)
+        self.background_2 = Background("Assets/Background/Background-2.png", game_speed - 13)
+        self.background_3 = Background("Assets/Background/Background-3.png", game_speed - 14)
+        
+  def update_speed(self, speed):
+    self.background_0.speed = speed
+    self.background_1.speed = speed - 12
+    self.background_2.speed = speed - 13
+    self.background_3.speed = speed - 14
+    
+  def draw(self):
+    self.background_3.draw()
+    self.background_2.draw()
+    self.background_1.draw()
+    self.background_0.draw()
+  
+  def update(self):
+    self.background_3.update()
+    self.background_2.update()
+    self.background_1.update()
+    self.background_0.update()
 
 
 def Start_Game():
