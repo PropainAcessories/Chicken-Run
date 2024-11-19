@@ -4,6 +4,7 @@ import os
 # to-do: sys.exit() when exiting game
 # Put in main gameplay loop later
 import sys
+# Use for obstacle placement later
 import random
 
 # Something I found that places window in center of display
@@ -48,13 +49,14 @@ def load_image(path, size_x=0, size_y=0):
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
   images = []
-  
+  # Gets image path, takes image name, and puts extension into string
   for i in range(0, number_of_image):
-    path = image_path + image_name_prefix + str(i) + '.png' # Gets image path, takes image name, and puts extension into string
+    path = image_path + image_name_prefix + str(i) + '.png' 
     image = pygame.image.load(path).convert_alpha
     
+    # Resizes image to given size
     if size_x > 0 and size_y > 0:
-      image = pygame.transform.scale(image, (size_x, size_y)) # Resizes image to given size
+      image = pygame.transform.scale(image, (size_x, size_y))
       
     images.append(image)
   
@@ -123,9 +125,7 @@ def Start_Game():
   # Main gameplay loop.
   while run:
     clock.tick(FPS)
-    
-    
+        
   # Will keep the main loop running as long as the player wants to play it.  
   while PLAY_GAME:
     PLAY_GAME = Start_Game()
-    
