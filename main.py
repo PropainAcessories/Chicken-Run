@@ -1,5 +1,19 @@
 import pygame
 from pygame.locals import *
+import os
+# to-do: sys.exit() when exiting game
+# Put in main gameplay loop later
+import sys
+# Use for obstacle placement later
+import random
+from chicken import Chicken
+from tree import Tree
+from hawk import Hawk
+from background import Background
+from allBackgrounds import AllBackgrounds
+
+# Something I found that places window in center of display
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -40,71 +54,19 @@ def load_image(path, size_x=0, size_y=0):
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
   images = []
-  
+  # Gets image path, takes image name, and puts extension into string
   for i in range(0, number_of_image):
-    path = image_path + image_name_prefix + str(i) + '.png' # Gets image path, takes image name, and puts extension into string
+    path = image_path + image_name_prefix + str(i) + '.png' 
     image = pygame.image.load(path).convert_alpha
     
+    # Resizes image to given size
     if size_x > 0 and size_y > 0:
-      image = pygame.transform.scale(image, (size_x, size_y)) # Resizes image to given size
+      image = pygame.transform.scale(image, (size_x, size_y))
       
     images.append(image)
   
   return images
 
-class Background:
-    
-  def __init__(self, image_path, speed = 10):
-    
-    self.image0, self.rect0 = load_image(image_path, 1280, 720)
-    self.image1, self.rect1 = load_image(image_path, 1280, 720)
-    
-    self.rect0.bottom = SCREEN_HEIGHT
-    self.rect1.bottom = SCREEN_HEIGHT
-    
-    self.rect1.left = self.rect0.right
-    
-    self.speed = speed
-    
-  def draw(self):
-    window.blit(self.image0, self.rect0)
-    window.blit(self.image1, self.rect1)
-      
-  def update(self):
-    self.rect0.left -= int(self.speed)
-    self.rect1.left -= int(self.speed)
-      
-    if self.rect0.right < 0:
-      self.rect0.left = self.rect1.right
-        
-    if self.rect1.right < 0:
-      self.rect1.left = self.rect0.right
-
-class AllBackgrounds:
-  
-  def __init__(self, game_speed):
-        self.background_0 = Background("Assets/Background/Background-0.png", game_speed)
-        self.background_1 = Background("Assets/Background/Background-1.png", game_speed - 12)
-        self.background_2 = Background("Assets/Background/Background-2.png", game_speed - 13)
-        self.background_3 = Background("Assets/Background/Background-3.png", game_speed - 14)
-        
-  def update_speed(self, speed):
-    self.background_0.speed = speed
-    self.background_1.speed = speed - 12
-    self.background_2.speed = speed - 13
-    self.background_3.speed = speed - 14
-    
-  def draw(self):
-    self.background_3.draw()
-    self.background_2.draw()
-    self.background_1.draw()
-    self.background_0.draw()
-  
-  def update(self):
-    self.background_3.update()
-    self.background_2.update()
-    self.background_1.update()
-    self.background_0.update()
 
 def Start_Game():
   run = True
@@ -112,11 +74,10 @@ def Start_Game():
   game_over = False
   # Game speed later
   
+  # Main gameplay loop.
   while run:
     clock.tick(FPS)
-    
-    
+        
   # Will keep the main loop running as long as the player wants to play it.  
   while PLAY_GAME:
     PLAY_GAME = Start_Game()
-    
