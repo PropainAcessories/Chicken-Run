@@ -49,12 +49,12 @@ def draw_text(text, font_name, size, text_color, position_x, position_y, positio
   window.blit(text_plane, text_rect)  # draws the text on the screen
 # Re-usable function for loading images
 def load_image(path, size_x=0, size_y=0):
-   image = pygame.image.load(path).convert_alpha()
+  image = pygame.image.load(path).convert_alpha()
 
-   if size_x > 0 and size_y > 0:
+  if size_x > 0 and size_y > 0:
     image = pygame.transform.scale(image, (size_x, size_y))
 
-    return image, image.get_rect()
+  return image, image.get_rect()
 # Re=usable function to load sprites into the game.
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
