@@ -29,6 +29,9 @@ clock = pygame.time.Clock()
 FPS = 30
 #Possible audio later
 
+
+# Re-usable functions for drawing text such as game over, menus, etc
+# All three functions below may need tweaking as we get to initializing assets.
 def draw_text(text, font_name, size, text_color, position_x, position_y, position):
 
   font = pygame.font.Font(font_name, size)  # loads font
@@ -43,7 +46,7 @@ def draw_text(text, font_name, size, text_color, position_x, position_y, positio
       text_rect.topright = (int(position_x), int(position_y))
 
   window.blit(text_plane, text_rect)  # draws the text on the screen
-
+# Re-usable function for loading images
 def load_image(path, size_x=0, size_y=0):
    image = pygame.image.load(path).convert_alpha()
 
@@ -51,7 +54,7 @@ def load_image(path, size_x=0, size_y=0):
     image = pygame.transform.scale(image, (size_x, size_y))
 
     return image, image.get_rect()
-   
+# Re=usable function to load sprites into the game.
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
   images = []
@@ -68,6 +71,7 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
   
   return images
 
+# Defines the background classs
 class Background:
     
   def __init__(self, image_path, speed = 10):
@@ -96,7 +100,9 @@ class Background:
     if self.rect1.right < 0:
       self.rect1.left = self.rect0.right
 
-
+# Loads all the backgrounds together.
+# Extends background class into a class that combines
+# All four seperate assets into a background.
 class AllBackgrounds:
   
   def __init__(self, game_speed):
