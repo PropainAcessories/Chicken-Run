@@ -6,7 +6,7 @@ import os
 # Put in main gameplay loop later
 import sys
 # Use for obstacle placement later
-#import random
+# import random
 # from chicken import Chicken
 # from tree import Tree
 # from hawk import Hawk
@@ -182,7 +182,7 @@ def Start_Game():
       # elif for jumping while chicken is alive
   # Draw functions for our assets    
     backgrounds.draw()
-  
+    pygame.display.flip()
   
   # if game_over:
   #   game_over_modal.draw()
