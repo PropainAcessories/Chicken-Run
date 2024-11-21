@@ -77,7 +77,6 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
 
 # Defines the background classs
 class Background:
-    
   def __init__(self, image_path, speed = 10):
     
     self.image0, self.rect0 = load_image(image_path, 1280, 720)
@@ -89,18 +88,18 @@ class Background:
     self.rect1.left = self.rect0.right
     
     self.speed = speed
-    
+      
   def draw(self):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
-      
+
   def update(self):
     self.rect0.left -= int(self.speed)
     self.rect1.left -= int(self.speed)
-      
+
     if self.rect0.right < 0:
       self.rect0.left = self.rect1.right
-        
+
     if self.rect1.right < 0:
       self.rect1.left = self.rect0.right
 
@@ -108,12 +107,11 @@ class Background:
 # Extends background class into a class that combines
 # All four seperate assets into a background.
 class AllBackgrounds:
-  
   def __init__(self, game_speed):
-    self.background_0 = Background('Assets/Background/Background-0.png', game_speed)
-    self.background_1 = Background('Assets/Background/Background-1.png', game_speed - 12)
-    self.background_2 = Background('Assets/Background/Background-2.png', game_speed - 13)
-    self.background_3 = Background('Assets/Background/Background-3.png', game_speed - 14)
+    self.background_0 = Background('./Assets/Background/Background-0.png', game_speed)
+    self.background_1 = Background('./Assets/Background/Background-1.png', game_speed - 12)
+    self.background_2 = Background('./Assets/Background/Background-2.png', game_speed - 13)
+    self.background_3 = Background('./Assets/Background/Background-3.png', game_speed - 14)
         
   def update_speed(self, speed):
     self.background_0.speed = speed
@@ -132,6 +130,8 @@ class AllBackgrounds:
     self.background_2.update()
     self.background_1.update()
     self.background_0.update()
+
+
 
 class GameOver:
   def __init__(self):
@@ -166,9 +166,9 @@ def Start_Game():
         pygame.quit()
         sys.exit()
       
-      if event.type == pygame.MOUSEBUTTONDOWN:
+      # if event.type == pygame.MOUSEBUTTONDOWN:
          # Gets mouse click coordinates
-        mx, my = pygame.mouse.get_pos()
+       # mx, my = pygame.mouse.get_pos()
         # detects if the mouse clicks the game over screen to play again
         # if game_over:
         #   if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
@@ -176,16 +176,16 @@ def Start_Game():
         #      play_again = True
         #      run = False
              #Listens for keys to get pressed
-    key = pygame.key.get_pressed()
+    # key = pygame.key.get_pressed()
     
-    if key[K_SPACE] or key[K_UP]:
-      if game_over:
-        play_again = True
-        run = False
+    # if key[K_SPACE] or key[K_UP]:
+    #   if game_over:
+    #     play_again = True
+    #     run = False
       # elif for jumping while chicken is alive
   # Draw functions for our assets    
-    backgrounds.draw()
-   # pygame.display.flip()
+      backgrounds.draw()
+      pygame.display.flip()
   
   # if game_over:
   #   game_over_modal.draw()
