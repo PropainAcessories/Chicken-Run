@@ -78,7 +78,6 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
 # Defines the background classs
 class Background:
   def __init__(self, image_path, speed = 10):
-    
     self.image0, self.rect0 = load_image(image_path, 1280, 720)
     self.image1, self.rect1 = load_image(image_path, 1280, 720)
     
@@ -166,9 +165,9 @@ def Start_Game():
         pygame.quit()
         sys.exit()
       
-      # if event.type == pygame.MOUSEBUTTONDOWN:
+      if event.type == pygame.MOUSEBUTTONDOWN:
          # Gets mouse click coordinates
-       # mx, my = pygame.mouse.get_pos()
+       mx, my = pygame.mouse.get_pos()
         # detects if the mouse clicks the game over screen to play again
         # if game_over:
         #   if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
@@ -176,16 +175,16 @@ def Start_Game():
         #      play_again = True
         #      run = False
              #Listens for keys to get pressed
-    # key = pygame.key.get_pressed()
+    key = pygame.key.get_pressed()
     
-    # if key[K_SPACE] or key[K_UP]:
-    #   if game_over:
-    #     play_again = True
-    #     run = False
+    if key[K_SPACE] or key[K_UP]:
+      if game_over:
+        play_again = True
+        run = False
       # elif for jumping while chicken is alive
   # Draw functions for our assets    
-      backgrounds.draw()
-      pygame.display.flip()
+    backgrounds.draw()
+    pygame.display.flip()
   
   # if game_over:
   #   game_over_modal.draw()
