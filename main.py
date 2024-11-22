@@ -35,6 +35,7 @@ FPS = 30
 # All three functions below may need tweaking as we get to initializing assets.
 def draw_text(text, font_name, size, text_color, position_x, position_y, position):
 
+
   font = pygame.font.Font(font_name, size)  # loads font
 
   text_plane = font.render(text, True, text_color)  # renders text in the selected font
@@ -47,6 +48,7 @@ def draw_text(text, font_name, size, text_color, position_x, position_y, positio
       text_rect.topright = (int(position_x), int(position_y))
 
   window.blit(text_plane, text_rect)  # draws the text on the screen
+
 # Re-usable function for loading images
 def load_image(path, size_x=0, size_y=0):
   image = pygame.image.load(path).convert_alpha()
@@ -55,6 +57,7 @@ def load_image(path, size_x=0, size_y=0):
     image = pygame.transform.scale(image, (size_x, size_y))
 
   return image, image.get_rect()
+
 # Re=usable function to load sprites into the game.
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
@@ -74,9 +77,7 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
 
 # Defines the background classs
 class Background:
-    
   def __init__(self, image_path, speed = 10):
-    
     self.image0, self.rect0 = load_image(image_path, 1280, 720)
     self.image1, self.rect1 = load_image(image_path, 1280, 720)
     
@@ -86,18 +87,18 @@ class Background:
     self.rect1.left = self.rect0.right
     
     self.speed = speed
-    
+      
   def draw(self):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
-      
+
   def update(self):
     self.rect0.left -= int(self.speed)
     self.rect1.left -= int(self.speed)
-      
+
     if self.rect0.right < 0:
       self.rect0.left = self.rect1.right
-        
+
     if self.rect1.right < 0:
       self.rect1.left = self.rect0.right
 
@@ -105,7 +106,6 @@ class Background:
 # Extends background class into a class that combines
 # All four seperate assets into a background.
 class AllBackgrounds:
-  
   def __init__(self, game_speed):
     self.background_0 = Background("Assets/Background/Background-0.png", game_speed)
     self.background_1 = Background("Assets/Background/Background-1.png", game_speed - 12)
@@ -129,6 +129,8 @@ class AllBackgrounds:
     self.background_2.update()
     self.background_1.update()
     self.background_0.update()
+
+
 
 class GameOver:
   def __init__(self):
@@ -165,7 +167,7 @@ def Start_Game():
       
       if event.type == pygame.MOUSEBUTTONDOWN:
          # Gets mouse click coordinates
-        mx, my = pygame.mouse.get_pos()
+       mx, my = pygame.mouse.get_pos()
         # detects if the mouse clicks the game over screen to play again
         # if game_over:
         #   if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
