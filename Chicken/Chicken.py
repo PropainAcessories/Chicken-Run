@@ -1,1 +1,1 @@
-from main import load_image, load_sprites
+from main import load_sprites

@@ -2,8 +2,6 @@ import pygame
 # imports EVERYTHING from pygame, will shrink later.
 from pygame.locals import *
 import os
-# to-do: sys.exit() when exiting game
-# Put in main gameplay loop later
 import sys
 # Use for obstacle placement later
 # import random
@@ -35,6 +33,7 @@ FPS = 30
 # All three functions below may need tweaking as we get to initializing assets.
 def draw_text(text, font_name, size, text_color, position_x, position_y, position):
 
+
   font = pygame.font.Font(font_name, size)  # loads font
 
   text_plane = font.render(text, True, text_color)  # renders text in the selected font
@@ -47,14 +46,17 @@ def draw_text(text, font_name, size, text_color, position_x, position_y, positio
       text_rect.topright = (int(position_x), int(position_y))
 
   window.blit(text_plane, text_rect)  # draws the text on the screen
+
 # Re-usable function for loading images
 def load_image(path, size_x=0, size_y=0):
+  
   image = pygame.image.load(path).convert_alpha()
 
   if size_x > 0 and size_y > 0:
     image = pygame.transform.scale(image, (size_x, size_y))
 
   return image, image.get_rect()
+
 # Re=usable function to load sprites into the game.
 def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_y=0):
   #image list
@@ -74,9 +76,7 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
 
 # Defines the background classs
 class Background:
-    
   def __init__(self, image_path, speed = 10):
-    
     self.image0, self.rect0 = load_image(image_path, 1280, 720)
     self.image1, self.rect1 = load_image(image_path, 1280, 720)
     
@@ -86,18 +86,18 @@ class Background:
     self.rect1.left = self.rect0.right
     
     self.speed = speed
-    
+      
   def draw(self):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
-      
+
   def update(self):
     self.rect0.left -= int(self.speed)
     self.rect1.left -= int(self.speed)
-      
+
     if self.rect0.right < 0:
       self.rect0.left = self.rect1.right
-        
+
     if self.rect1.right < 0:
       self.rect1.left = self.rect0.right
 
@@ -105,12 +105,11 @@ class Background:
 # Extends background class into a class that combines
 # All four seperate assets into a background.
 class AllBackgrounds:
-  
   def __init__(self, game_speed):
-        self.background_0 = Background("Assets/Background/Background-0.png", game_speed)
-        self.background_1 = Background("Assets/Background/Background-1.png", game_speed - 12)
-        self.background_2 = Background("Assets/Background/Background-2.png", game_speed - 13)
-        self.background_3 = Background("Assets/Background/Background-3.png", game_speed - 14)
+    self.background_0 = Background("Assets/Background/background-0.png", game_speed)
+    self.background_1 = Background("Assets/Background/background-1.png", game_speed - 12)
+    self.background_2 = Background("Assets/Background/background-2.png", game_speed - 13)
+    self.background_3 = Background("Assets/Background/background-3.png", game_speed - 14)
         
   def update_speed(self, speed):
     self.background_0.speed = speed
@@ -130,17 +129,16 @@ class AllBackgrounds:
     self.background_1.update()
     self.background_0.update()
 
+
+
 class GameOver:
   def __init__(self):
-    # Need to draw game over screen/menu
-    # Put string of filepath into load image
-    # 200, 60 pos numbers ex: load_image('gameOverfilePath.png', 200 60)
-    self.replay_image, self.rect = load_image()
+    self.replay_image, self.rect = load_image('Assets/game_over/replayBtn.png', 200, 60)
 
     self.rect.center = (int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
   
   def draw(self):
-    draw_text('GAME OVER', 'font/northcliff_stencil.otf', 80, (255, 0, 0),
+    draw_text('GAME OVER', 'Assets/font/northcliff_stencil.otf', 80, (255, 0, 0),
       SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 'midtop')
     window.blit(self.replay_image, self.rect)
 
@@ -151,7 +149,7 @@ def Start_Game():
   # Number of pixels the game moves
   game_speed = 15
   backgrounds = AllBackgrounds(game_speed)
-  # game_over_modal = GameOver()
+  game_over_modal = GameOver()
   # Main gameplay loop.
   while run:
     clock.tick(FPS)
@@ -167,11 +165,13 @@ def Start_Game():
          # Gets mouse click coordinates
         mx, my = pygame.mouse.get_pos()
         # detects if the mouse clicks the game over screen to play again
-        # if game_over:
-        #   if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
-        #         game_over_modal.rect.top < my < game_over_modal.rect.bottom:
-        #      play_again = True
-        #      run = False
+        if game_over:
+        # checks if the play again button is clicked
+          if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
+                  game_over_modal.rect.top < my < game_over_modal.rect.bottom:
+              play_again = True
+              run = False
+
              #Listens for keys to get pressed
     key = pygame.key.get_pressed()
     
@@ -182,10 +182,11 @@ def Start_Game():
       # elif for jumping while chicken is alive
   # Draw functions for our assets    
     backgrounds.draw()
+    
     pygame.display.flip()
   
-  # if game_over:
-  #   game_over_modal.draw()
+    if game_over:
+      game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
   
