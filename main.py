@@ -51,6 +51,7 @@ def draw_text(text, font_name, size, text_color, position_x, position_y, positio
 
 # Re-usable function for loading images
 def load_image(path, size_x=0, size_y=0):
+  
   image = pygame.image.load(path).convert_alpha()
 
   if size_x > 0 and size_y > 0:
@@ -107,10 +108,10 @@ class Background:
 # All four seperate assets into a background.
 class AllBackgrounds:
   def __init__(self, game_speed):
-    self.background_0 = Background("Assets/Background/Background-0.png", game_speed)
-    self.background_1 = Background("Assets/Background/Background-1.png", game_speed - 12)
-    self.background_2 = Background("Assets/Background/Background-2.png", game_speed - 13)
-    self.background_3 = Background("Assets/Background/Background-3.png", game_speed - 14)
+    self.background_0 = Background("Assets/Background/background-0.png", game_speed)
+    self.background_1 = Background("Assets/Background/background-1.png", game_speed - 12)
+    self.background_2 = Background("Assets/Background/background-2.png", game_speed - 13)
+    self.background_3 = Background("Assets/Background/background-3.png", game_speed - 14)
         
   def update_speed(self, speed):
     self.background_0.speed = speed
@@ -187,8 +188,8 @@ def Start_Game():
     
     pygame.display.flip()
   
-  # if game_over:
-  #   game_over_modal.draw()
+    # if game_over:
+    #   game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
   
