@@ -133,7 +133,7 @@ class AllBackgrounds:
 
 class GameOver:
   def __init__(self):
-    self.replay_image, self.rect = load_image('Assets/game_over/image_name.png', 200, 60)
+    self.replay_image, self.rect = load_image('Assets/game_over/play_again.png', 200, 60)
 
     self.rect.center = (int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
   
