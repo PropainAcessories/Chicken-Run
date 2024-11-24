@@ -87,7 +87,7 @@ class Background:
     
     self.speed = speed
       
-  def draw(self):
+  def draw(self, window):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
 
@@ -97,6 +97,7 @@ class Background:
 
     if self.rect0.right < 0:
       self.rect0.left = self.rect1.right
+
 
     if self.rect1.right < 0:
       self.rect1.left = self.rect0.right
@@ -117,11 +118,11 @@ class AllBackgrounds:
     self.background_2.speed = speed - 13
     self.background_3.speed = speed - 14
     
-  def draw(self):
-    self.background_3.draw()
-    self.background_2.draw()
-    self.background_1.draw()
-    self.background_0.draw()
+  def draw(self, window):
+    self.background_3.draw(window)
+    self.background_2.draw(window)
+    self.background_1.draw(window)
+    self.background_0.draw(window)
   
   def update(self):
     self.background_3.update()
@@ -179,14 +180,14 @@ def Start_Game():
         run = False
       # elif for jumping while chicken is alive
   # Draw functions for our assets
-    window.fill((0, 0, 0))
     backgrounds.update()
-    backgrounds.draw()
+    window.fill((0, 0, 0))
+    backgrounds.draw(window)
     
     
   
     if game_over:
-      game_over_modal.draw()
+      game_over_modal.draw(window)
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
     pygame.display.flip()
