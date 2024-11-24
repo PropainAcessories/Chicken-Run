@@ -180,7 +180,14 @@ def Start_Game():
         run = False
       # elif for jumping while chicken is alive
   # Draw functions for our assets
-    backgrounds.update()
+  
+    # Unseal once we have chicken, this function makes the background scroll
+    # Does most of the work for the running chicken Chicken.run() will mostly
+    # animate the chicken by iterating through the run images.
+    
+    # backgrounds.update()
+    
+    
     window.fill((0, 0, 0))
     backgrounds.draw()
     
