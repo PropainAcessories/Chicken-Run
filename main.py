@@ -87,7 +87,7 @@ class Background:
     
     self.speed = speed
       
-  def draw(self, window):
+  def draw(self):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
 
@@ -118,11 +118,11 @@ class AllBackgrounds:
     self.background_2.speed = speed - 13
     self.background_3.speed = speed - 14
     
-  def draw(self, window):
-    self.background_3.draw(window)
-    self.background_2.draw(window)
-    self.background_1.draw(window)
-    self.background_0.draw(window)
+  def draw(self):
+    self.background_3.draw()
+    self.background_2.draw()
+    self.background_1.draw()
+    self.background_0.draw()
   
   def update(self):
     self.background_3.update()
@@ -182,12 +182,12 @@ def Start_Game():
   # Draw functions for our assets
     backgrounds.update()
     window.fill((0, 0, 0))
-    backgrounds.draw(window)
+    backgrounds.draw()
     
     
   
     if game_over:
-      game_over_modal.draw(window)
+      game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
     pygame.display.flip()
