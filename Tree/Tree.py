@@ -1,4 +1,4 @@
-from main import load_sprites
+from main import load_sprites, GROUND_HEIGHT
 
 class Tree:
   def __init__(self, image_path, speed = 10):

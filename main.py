@@ -129,8 +129,6 @@ class AllBackgrounds:
     self.background_1.update()
     self.background_0.update()
 
-
-
 class GameOver:
   def __init__(self):
     self.replay_image, self.rect = load_image('Assets/game_over/replayBtn.png', 200, 60)
@@ -180,16 +178,18 @@ def Start_Game():
         play_again = True
         run = False
       # elif for jumping while chicken is alive
-  # Draw functions for our assets    
+  # Draw functions for our assets
+    window.fill((0, 0, 0))
+    backgrounds.update()
     backgrounds.draw()
     
-    pygame.display.flip()
+    
   
     if game_over:
       game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
-  
+    pygame.display.flip()
   return play_again
 
   # Will keep the main loop running as long as the player wants to play it.  
