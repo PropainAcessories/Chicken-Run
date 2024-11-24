@@ -98,6 +98,7 @@ class Background:
     if self.rect0.right < 0:
       self.rect0.left = self.rect1.right
 
+
     if self.rect1.right < 0:
       self.rect1.left = self.rect0.right
 
@@ -128,8 +129,6 @@ class AllBackgrounds:
     self.background_2.update()
     self.background_1.update()
     self.background_0.update()
-
-
 
 class GameOver:
   def __init__(self):
@@ -180,16 +179,25 @@ def Start_Game():
         play_again = True
         run = False
       # elif for jumping while chicken is alive
-  # Draw functions for our assets    
+  # Draw functions for our assets
+  
+    # Unseal once we have chicken, this function makes the background scroll
+    # Does most of the work for the running chicken Chicken.run() will mostly
+    # animate the chicken by iterating through the run images.
+    
+    # backgrounds.update()
+    
+    
+    window.fill((0, 0, 0))
     backgrounds.draw()
     
-    pygame.display.flip()
+    
   
     if game_over:
       game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
-  
+    pygame.display.flip()
   return play_again
 
   # Will keep the main loop running as long as the player wants to play it.  
