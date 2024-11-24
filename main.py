@@ -2,8 +2,6 @@ import pygame
 # imports EVERYTHING from pygame, will shrink later.
 from pygame.locals import *
 import os
-# to-do: sys.exit() when exiting game
-# Put in main gameplay loop later
 import sys
 # Use for obstacle placement later
 # import random
@@ -135,15 +133,12 @@ class AllBackgrounds:
 
 class GameOver:
   def __init__(self):
-    # Need to draw game over screen/menu
-    # Put string of filepath into load image
-    # 200, 60 pos numbers ex: load_image('gameOverfilePath.png', 200 60)
-    self.replay_image, self.rect = load_image('filestring.png', 200, 60)
+    self.replay_image, self.rect = load_image('Assets/game_over/image_name.png', 200, 60)
 
     self.rect.center = (int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
   
   def draw(self):
-    draw_text('GAME OVER', 'font/northcliff_stencil.otf', 80, (255, 0, 0),
+    draw_text('GAME OVER', 'Assets/font/northcliff_stencil.otf', 80, (255, 0, 0),
       SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 'midtop')
     window.blit(self.replay_image, self.rect)
 
