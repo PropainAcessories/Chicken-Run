@@ -138,7 +138,7 @@ class GameOver:
     # Need to draw game over screen/menu
     # Put string of filepath into load image
     # 200, 60 pos numbers ex: load_image('gameOverfilePath.png', 200 60)
-    self.replay_image, self.rect = load_image()
+    self.replay_image, self.rect = load_image('filestring.png', 200, 60)
 
     self.rect.center = (int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2))
   
@@ -154,7 +154,7 @@ def Start_Game():
   # Number of pixels the game moves
   game_speed = 15
   backgrounds = AllBackgrounds(game_speed)
-  # game_over_modal = GameOver()
+  game_over_modal = GameOver()
   # Main gameplay loop.
   while run:
     clock.tick(FPS)
@@ -168,13 +168,15 @@ def Start_Game():
       
       if event.type == pygame.MOUSEBUTTONDOWN:
          # Gets mouse click coordinates
-       mx, my = pygame.mouse.get_pos()
+        mx, my = pygame.mouse.get_pos()
         # detects if the mouse clicks the game over screen to play again
-        # if game_over:
-        #   if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
-        #         game_over_modal.rect.top < my < game_over_modal.rect.bottom:
-        #      play_again = True
-        #      run = False
+        if game_over:
+        # checks if the play again button is clicked
+          if game_over_modal.rect.left < mx < game_over_modal.rect.right and \
+                  game_over_modal.rect.top < my < game_over_modal.rect.bottom:
+              play_again = True
+              run = False
+
              #Listens for keys to get pressed
     key = pygame.key.get_pressed()
     
@@ -188,8 +190,8 @@ def Start_Game():
     
     pygame.display.flip()
   
-    # if game_over:
-    #   game_over_modal.draw()
+    if game_over:
+      game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
   
