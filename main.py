@@ -11,7 +11,6 @@ import sys
 
 # kameron's comment
 
-
 # Something I found that places window in center of display
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
@@ -87,7 +86,7 @@ class Background:
     
     self.speed = speed
       
-  def draw(self):
+  def draw(self, window):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
 
@@ -107,10 +106,10 @@ class Background:
 # All four seperate assets into a background.
 class AllBackgrounds:
   def __init__(self, game_speed):
-    self.background_0 = Background("Assets/Background/background-0.png", game_speed)
-    self.background_1 = Background("Assets/Background/background-1.png", game_speed - 12)
-    self.background_2 = Background("Assets/Background/background-2.png", game_speed - 13)
-    self.background_3 = Background("Assets/Background/background-3.png", game_speed - 14)
+    self.background_0 = Background("Assets/Background/background_0.png", game_speed)
+    self.background_1 = Background("Assets/Background/background_1.png", game_speed - 12)
+    self.background_2 = Background("Assets/Background/background_2.png", game_speed - 13)
+    self.background_3 = Background("Assets/Background/background_3.png", game_speed - 14)
         
   def update_speed(self, speed):
     self.background_0.speed = speed
@@ -118,11 +117,11 @@ class AllBackgrounds:
     self.background_2.speed = speed - 13
     self.background_3.speed = speed - 14
     
-  def draw(self):
-    self.background_3.draw()
-    self.background_2.draw()
-    self.background_1.draw()
-    self.background_0.draw()
+  def draw(self, window):
+    self.background_3.draw(window)
+    self.background_2.draw(window)
+    self.background_1.draw(window)
+    self.background_0.draw(window)
   
   def update(self):
     self.background_3.update()
@@ -185,12 +184,11 @@ def Start_Game():
     # Does most of the work for the running chicken Chicken.run() will mostly
     # animate the chicken by iterating through the run images.
     
-    # backgrounds.update()
     
     
+    backgrounds.update()
     window.fill((0, 0, 0))
-    backgrounds.draw()
-    
+    backgrounds.draw(window)
     
   
     if game_over:
@@ -198,6 +196,7 @@ def Start_Game():
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
     pygame.display.flip()
+    
   return play_again
 
   # Will keep the main loop running as long as the player wants to play it.  

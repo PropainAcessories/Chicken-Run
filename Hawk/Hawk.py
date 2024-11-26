@@ -1,9 +1,8 @@
 from main import load_sprites, GROUND_HEIGHT
-import os
 import random
 import pygame
 
-
+# Work in progress will polish on tuesday
 class Hawk:
   # Can change later once we're testing game
   BIRD_HEIGHTS = [30, 50, 60, 90, 110, 120]
