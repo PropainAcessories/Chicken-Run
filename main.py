@@ -3,7 +3,7 @@ import pygame
 from pygame.locals import *
 import os
 import sys
-# Use for obstacle placement later
+
 import random
 
 
