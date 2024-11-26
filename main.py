@@ -116,9 +116,9 @@ class AllBackgrounds:
     self.background_3.speed = speed - 14
     
   def draw(self):
-    # self.background_3.draw()
-    # self.background_2.draw()
-    # self.background_1.draw()
+    self.background_3.draw()
+    self.background_2.draw()
+    self.background_1.draw()
     self.background_0.draw()
   
   def update(self):
@@ -138,44 +138,46 @@ class GameOver:
       SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 'midtop')
     window.blit(self.replay_image, self.rect)
     
-class Hawk:
-  # Can change later once we're testing game
-  BIRD_HEIGHTS = [30, 50, 60, 90, 110, 120]
+# class Hawk:
+#   # Can change later once we're testing game
+#   BIRD_HEIGHTS = [30, 50, 60, 90, 110, 120]
   
-  def __init__(self, x: int):
-    self.x = x
-    self.y = GROUND_HEIGHT - random.choice(self.BIRD_HEIGHTS)
-    # May need to adjust sprite size
-    self.images = load_sprites('Assets/Hawk/', 'Hawk_', 100, 75)
-    self.img = self.images[0]
-    self.draw()
-    self.rect = self.img.get_rect()
-    # May need to adjust rectangle size
-    self.step_index = 0
-    self.rect.x = self.x
-    self.rect.y = 50
-  
-  def draw(self, window: pygame.Surface):
-    window.blit(self.img, (self.x, self.y))
+#   def __init__(self, speed = 10):
+#     # May need to adjust sprite size
+#     self.hawk_images = load_sprites('Assets/Hawk/', 'Hawk_', 5,  160, 160)
     
-  def move(self):
-    self.x = 13
-    # Will make the bird flap
-    # May need to adjust speed.
-    if self.step_index >= 40:
-      self.step_index = 0
+#     self.hawk_image_0, self.rect_0 = self.hawk_images[0], self.hawk_images[0].get_rect()
+#     self.hawk_image_0, self.rect_0 = self.hawk_images[1], self.hawk_images[1].get_rect()
+
+#     # May need to adjust rectangle size
+#     self.step_index = 0
+#     self.rect.x = self.x
+#     self.rect.y = 50
+  
+#   def draw(self, window: pygame.Surface):
+#     window.blit(self.img, (self.x, self.y))
+    
+#   def move(self):
+#     self.x = 13
+#     # Will make the bird flap
+#     # May need to adjust speed.
+#     if self.step_index >= 40:
+#       self.step_index = 0
       
-    self.img = self.images[self.step_index // 20]
-    self.rect = self.img.get_rect()
-    self.rect.x = self.x
-    self.rect.y = self.y
-    self.step_index += 1
+#     self.img = self.images[self.step_index // 20]
+#     self.rect = self.img.get_rect()
+#     self.rect.x = self.x
+#     self.rect.y = self.y
+#     self.step_index += 1
   
-  def collide(self, chicken: pygame.Rect):
-    if chicken.colliderect(self.rect):
-      return True
-    return False
-  
+  # def collide(self):
+    
+# class Tree:
+#   def __init__(self, speed = 10):
+#     self.tree_images = load_sprites('Assets/trees/tree', 'Hawk_', 5,  160, 160)
+#     # Will make more trees later.
+#     self.tree_image_0, self.rect_0 = self.tree_images[0],
+      
     
 def Start_Game():
   run = True
