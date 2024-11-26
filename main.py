@@ -4,13 +4,10 @@ from pygame.locals import *
 import os
 import sys
 # Use for obstacle placement later
-# import random
-# from chicken import Chicken
-# from tree import Tree
-# from hawk import Hawk
+import random
+
 
 # kameron's comment
-
 
 # Something I found that places window in center of display
 os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -107,10 +104,10 @@ class Background:
 # All four seperate assets into a background.
 class AllBackgrounds:
   def __init__(self, game_speed):
-    self.background_0 = Background("Assets/Background/background-0.png", game_speed)
-    self.background_1 = Background("Assets/Background/background-1.png", game_speed - 12)
-    self.background_2 = Background("Assets/Background/background-2.png", game_speed - 13)
-    self.background_3 = Background("Assets/Background/background-3.png", game_speed - 14)
+    self.background_0 = Background("Assets/Background/background_0.png", game_speed)
+    self.background_1 = Background("Assets/Background/background_1.png", game_speed - 12)
+    self.background_2 = Background("Assets/Background/background_2.png", game_speed - 13)
+    self.background_3 = Background("Assets/Background/background_3.png", game_speed - 14)
         
   def update_speed(self, speed):
     self.background_0.speed = speed
@@ -119,9 +116,9 @@ class AllBackgrounds:
     self.background_3.speed = speed - 14
     
   def draw(self):
-    self.background_3.draw()
-    self.background_2.draw()
-    self.background_1.draw()
+    # self.background_3.draw()
+    # self.background_2.draw()
+    # self.background_1.draw()
     self.background_0.draw()
   
   def update(self):
@@ -140,7 +137,46 @@ class GameOver:
     draw_text('GAME OVER', 'Assets/font/northcliff_stencil.otf', 80, (255, 0, 0),
       SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 'midtop')
     window.blit(self.replay_image, self.rect)
-
+    
+class Hawk:
+  # Can change later once we're testing game
+  BIRD_HEIGHTS = [30, 50, 60, 90, 110, 120]
+  
+  def __init__(self, x: int):
+    self.x = x
+    self.y = GROUND_HEIGHT - random.choice(self.BIRD_HEIGHTS)
+    # May need to adjust sprite size
+    self.images = load_sprites('Assets/Hawk/', 'Hawk_', 100, 75)
+    self.img = self.images[0]
+    self.draw()
+    self.rect = self.img.get_rect()
+    # May need to adjust rectangle size
+    self.step_index = 0
+    self.rect.x = self.x
+    self.rect.y = 50
+  
+  def draw(self, window: pygame.Surface):
+    window.blit(self.img, (self.x, self.y))
+    
+  def move(self):
+    self.x = 13
+    # Will make the bird flap
+    # May need to adjust speed.
+    if self.step_index >= 40:
+      self.step_index = 0
+      
+    self.img = self.images[self.step_index // 20]
+    self.rect = self.img.get_rect()
+    self.rect.x = self.x
+    self.rect.y = self.y
+    self.step_index += 1
+  
+  def collide(self, chicken: pygame.Rect):
+    if chicken.colliderect(self.rect):
+      return True
+    return False
+  
+    
 def Start_Game():
   run = True
   play_again = False
@@ -179,18 +215,17 @@ def Start_Game():
         play_again = True
         run = False
       # elif for jumping while chicken is alive
-  # Draw functions for our assets
+
   
     # Unseal once we have chicken, this function makes the background scroll
     # Does most of the work for the running chicken Chicken.run() will mostly
     # animate the chicken by iterating through the run images.
     
-    # backgrounds.update()
     
     
+    backgrounds.update()
     window.fill((0, 0, 0))
     backgrounds.draw()
-    
     
   
     if game_over:
@@ -198,6 +233,7 @@ def Start_Game():
   # else will go here for the score, backgrounds, and obstacles to update
   # As well as for speeds to change and to check collisions
     pygame.display.flip()
+    
   return play_again
 
   # Will keep the main loop running as long as the player wants to play it.  
