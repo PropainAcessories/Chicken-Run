@@ -10,11 +10,12 @@ class Hawk:
   def __init__(self, x: int):
     self.x = x
     self.y = GROUND_HEIGHT - random.choice(self.BIRD_HEIGHTS)
+    # May need to adjust sprite size
     self.images = load_sprites('Assets/Hawk/', 'Hawk_', 100, 75)
     self.img = self.images[0]
     self.draw()
     self.rect = self.img.get_rect()
-    
+    # May need to adjust rectangle size
     self.step_index = 0
     self.rect.x = self.x
     self.rect.y = 50
@@ -25,6 +26,7 @@ class Hawk:
   def move(self):
     self.x = 13
     # Will make the bird flap
+    # May need to adjust speed.
     if self.step_index >= 40:
       self.step_index = 0
       

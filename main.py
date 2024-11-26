@@ -4,10 +4,8 @@ from pygame.locals import *
 import os
 import sys
 # Use for obstacle placement later
-# import random
-# from chicken import Chicken
-# from tree import Tree
-# from hawk import Hawk
+import random
+
 
 # kameron's comment
 
@@ -86,7 +84,7 @@ class Background:
     
     self.speed = speed
       
-  def draw(self, window):
+  def draw(self):
     window.blit(self.image0, self.rect0)
     window.blit(self.image1, self.rect1)
 
@@ -117,11 +115,11 @@ class AllBackgrounds:
     self.background_2.speed = speed - 13
     self.background_3.speed = speed - 14
     
-  def draw(self, window):
-    self.background_3.draw(window)
-    self.background_2.draw(window)
-    self.background_1.draw(window)
-    self.background_0.draw(window)
+  def draw(self):
+    # self.background_3.draw()
+    # self.background_2.draw()
+    # self.background_1.draw()
+    self.background_0.draw()
   
   def update(self):
     self.background_3.update()
@@ -139,7 +137,7 @@ class GameOver:
     draw_text('GAME OVER', 'Assets/font/northcliff_stencil.otf', 80, (255, 0, 0),
       SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 'midtop')
     window.blit(self.replay_image, self.rect)
-
+    
 def Start_Game():
   run = True
   play_again = False
@@ -178,7 +176,7 @@ def Start_Game():
         play_again = True
         run = False
       # elif for jumping while chicken is alive
-  # Draw functions for our assets
+
   
     # Unseal once we have chicken, this function makes the background scroll
     # Does most of the work for the running chicken Chicken.run() will mostly
