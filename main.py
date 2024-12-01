@@ -172,13 +172,16 @@ class GameOver:
   
   # def collide(self):
     
-# class Tree:
-#   def __init__(self, speed = 10):
-#     self.tree_images = load_sprites('Assets/trees/tree', 'Hawk_', 5,  160, 160)
-#     # Will make more trees later.
-#     self.tree_image_0, self.rect_0 = self.tree_images[0],
-      
+class Tree:
+  def __init__(self, speed = 10):
+    self.tree_images = load_sprites('Assets/trees/tree', 'tree_', 5,  160, 160)
+    # Will make more trees later.
+    self.tree_image_0, self.rect_0 = self.tree_images[0], self.tree_images[0].get_rect()
+    self.tree_image_1, self.rect_1 = self.tree_images[1], self.tree_images[0].get_rect()
     
+# class Chicken:
+#   def __init__(self, speed = 10):
+
 def Start_Game():
   run = True
   play_again = False
