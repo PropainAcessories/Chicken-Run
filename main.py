@@ -61,12 +61,12 @@ def load_sprites(image_path, image_name_prefix, number_of_image, size_x=0, size_
   # Gets image path, takes image name, and puts extension into string
   for i in range(0, number_of_image):
     path = image_path + image_name_prefix + str(i) + '.png' 
-    image = pygame.image.load(path).convert_alpha
+    image = pygame.image.load(path).convert_alpha()
     
     # Resizes image to given size
     if size_x > 0 and size_y > 0:
       image = pygame.transform.scale(image, (size_x, size_y))
-      
+
     images.append(image)
   
   return images
@@ -174,13 +174,68 @@ class GameOver:
     
 class Tree:
   def __init__(self, speed = 10):
-    self.tree_images = load_sprites('Assets/trees/tree', 'tree_', 5,  160, 160)
+    self.tree_images = load_sprites('Assets/trees/', 'tree_', 2,  160, 160)
     # Will make more trees later.
     self.tree_image_0, self.rect_0 = self.tree_images[0], self.tree_images[0].get_rect()
     self.tree_image_1, self.rect_1 = self.tree_images[1], self.tree_images[0].get_rect()
+    # Ground Height can change depending on how high the background is
+    self.rect_0.bottom = GROUND_HEIGHT - 11
+    self.rect_0.left = SCREEN_WIDTH
     
-# class Chicken:
-#   def __init__(self, speed = 10):
+    self.rect_1.bottom = GROUND_HEIGHT - 11
+    self.rect_1.left = self.rect_0.right + int(SCREEN_WIDTH/2)
+    
+    self.speed = speed
+    
+    self.range_0 = 240
+    self.range_1 = 720
+  
+  def get_tree(self):
+    current_tree = [self.tree_image_0, self.tree_image_1]
+    tree_rect = [self.rect_0, self.rect_1]
+    
+    return current_tree, tree_rect
+  
+  def update_speed(self, speed):
+    self.speed = speed
+    self.range_0 += 1
+    self.range_1 += 1
+    
+  def draw(self):
+    window.blit(self.tree_image_0, self.rect_0)
+    window.blit(self.tree_image_1, self.rect_1)
+  
+  def update(self):
+    self.rect_0.left -= int(self.speed)
+    self.rect_1.left -= int(self.speed)
+    
+    if self.rect_0.right < 0:
+      temp_position = self.rect_1.right = random.randrange(self.range_0, self.range_1)
+      
+      if temp_position > SCREEN_WIDTH:
+        self.rect_0.left = temp_position
+      else:
+        self.rect_0.left = SCREEN_WIDTH
+      
+      temp_index = random.randrange(0, 5)
+      self.tree_image_0 = self.tree_images[temp_index]
+    
+    if self.rect_1.right < 0:
+      temp_position = self.rect_0.right = random.randrange(self.range_0, self.range_1)  
+        
+      if temp_position > SCREEN_WIDTH:
+        self.rect_1.left = temp_position
+      else:
+        self.rect_1.left = SCREEN_WIDTH
+      
+      temp_index = random.randrange(0, 5)
+      self.tree_image_1 = self.tree_images[temp_index]
+    
+class Chicken:
+  def __init__(self):
+    self.idle_chicken = load_sprites('Assets/chicken/', 'idle_')
+    self.running_chicken = load_sprites('Assets/chicken/', 'run')
+    self.jumping_chicken = load_sprites('Assets/chicken', 'jump_')
 
 def Start_Game():
   run = True
@@ -189,6 +244,7 @@ def Start_Game():
   # Number of pixels the game moves
   game_speed = 15
   backgrounds = AllBackgrounds(game_speed)
+  tree = Tree(game_speed)
   game_over_modal = GameOver()
   # Main gameplay loop.
   while run:
@@ -228,11 +284,11 @@ def Start_Game():
     
     
     
-    backgrounds.update()
+    # backgrounds.update()
     window.fill((0, 0, 0))
     backgrounds.draw()
-    
-  
+    tree.draw()
+
     if game_over:
       game_over_modal.draw()
   # else will go here for the score, backgrounds, and obstacles to update
