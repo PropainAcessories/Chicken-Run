@@ -217,7 +217,7 @@ class Tree:
       else:
         self.rect_0.left = SCREEN_WIDTH
       
-      temp_index = random.randrange(0, 5)
+      temp_index = random.randrange(0, 2)
       self.tree_image_0 = self.tree_images[temp_index]
     
     if self.rect_1.right < 0:
@@ -228,15 +228,102 @@ class Tree:
       else:
         self.rect_1.left = SCREEN_WIDTH
       
-      temp_index = random.randrange(0, 5)
+      temp_index = random.randrange(0, 2)
       self.tree_image_1 = self.tree_images[temp_index]
     
 class Chicken:
   def __init__(self):
+    # number of images, size X, Size Y
     self.idle_chicken = load_sprites('Assets/chicken/', 'idle_')
-    self.running_chicken = load_sprites('Assets/chicken/', 'run')
-    self.jumping_chicken = load_sprites('Assets/chicken', 'jump_')
-
+    self.running_chicken = load_sprites('Assets/chicken/', 'run_')
+    self.jumping_chicken = load_sprites('Assets/chicken/', 'jump_')
+    
+    self.rect = self.idle_chicken[0].get_rect()
+    
+    self.rect.bottom = GROUND_HEIGHT
+    self.rect.left = 70
+    #jump physics
+    self.jump_limit = GROUND_HEIGHT - 290
+    self.jump_speed = 50
+    self.gravity_up = 4
+    self.gravity_down = 2
+    #indexes 
+    self.idle_index = 0
+    self.running_index = 0
+    self.jumping_index = 0
+    
+    #idle physics
+    self.idle = True
+    self.running = False
+    self.jumping = False
+    self.falling = False
+    
+    self.call_count = 0
+  # Need to check collision with hawk, still have unfinished hawk.
+  def check_collision(self, all_tree):
+    
+    if self.running:
+      chicken_mask = pygame.mask.from_surface(self.running_chicken[self.running_index])
+    elif self.jumping:
+      chicken_mask = pygame.mask.from_surface(self.jumping_chicken[self.jumping_index])
+    else:
+      chicken_mask = pygame.mask.from_surface(self.idle_chicken[self.idle_index])
+      
+    current_tree, tree_rect = all_tree
+    
+    offset_0 = (tree_rect[0].left - self.rect.left, tree_rect[0].top - self.rect.top)
+    offset_1 = (tree_rect[1].left - self.rect.left, tree_rect[1].top - self.rect.top)
+    
+    collide = chicken_mask.overlap(pygame.mask.from_surface(current_tree[0]), offset_0) or \
+      chicken_mask.overlap(pygame.mask.from_surface(current_tree[1]), offset_1)
+      
+    return collide
+  
+  def draw(self):
+    
+    if self.running:
+      window.blit(self.running_chicken[self.running_index], self.rect)
+    elif self.jumping:
+      window.blit(self.jumping_chicken[self.jumping_index], self.rect)
+    elif self.idle:
+      window.blit(self.idle_chicken[self.idle_index], self.rect)
+  # does the animation using call count and some math to check if at end of loop.
+  def update(self):
+    if self.running and self.call_count % 3 == 0:
+      self.running_index = (self.running_index + 1) % 2
+    elif self.jumping:
+      if not self.falling:
+        self.rect.bottom -= self.jump_speed
+        
+        if self.jump_speed >= self.gravity_up:
+          self.jump_speed -= self.gravity_up
+          
+        if self.rect.bottom < self.jump_limit:
+          self.jump_speed = 0
+          self.falling = True
+      else:
+        self.rect.bottom += self.jump_speed
+        self.jump_speed += self.gravity_down
+        
+        if self.rect.bottom > GROUND_HEIGHT:
+          self.rect.bottom = GROUND_HEIGHT
+          self.jump_speed = 50
+          
+          self.jumping_index = 0
+          self.running_index = 0
+          
+          self.jumping = False
+          self.falling = False
+          self.running = True
+      if self.call_count % 2 == 0 or self.call_count % 3 == 0:
+        self.jumping_index = (self.jumping_index + 1) % 2
+        
+    elif self.idle and self.call_count % 3 == 0:
+      self.idle_index(self.idle_index + 1) % 2
+      
+    self.call_count = self.call_count + 1
+    
+    
 def Start_Game():
   run = True
   play_again = False
@@ -244,6 +331,7 @@ def Start_Game():
   # Number of pixels the game moves
   game_speed = 15
   backgrounds = AllBackgrounds(game_speed)
+  chicken = Chicken()
   tree = Tree(game_speed)
   game_over_modal = GameOver()
   # Main gameplay loop.
@@ -288,6 +376,7 @@ def Start_Game():
     window.fill((0, 0, 0))
     backgrounds.draw()
     tree.draw()
+    chicken.draw()
 
     if game_over:
       game_over_modal.draw()
