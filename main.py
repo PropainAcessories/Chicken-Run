@@ -22,7 +22,7 @@ window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Chicken Run')
 
 clock = pygame.time.Clock()
-FPS = 30
+FPS = 24
 #Possible audio later
 
 
