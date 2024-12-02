@@ -233,7 +233,7 @@ class Tree:
     
 class Chicken:
   def __init__(self):
-    # number of images, size X, Size Y
+    # number of images, 220, 155
     self.idle_chicken = load_sprites('Assets/chicken/', 'idle_')
     self.running_chicken = load_sprites('Assets/chicken/', 'run_')
     self.jumping_chicken = load_sprites('Assets/chicken/', 'jump_')
