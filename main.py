@@ -286,7 +286,7 @@ class Chicken:
       window.blit(self.jumping_chicken[self.jumping_index], self.rect)
     elif self.idle:
       window.blit(self.idle_chicken[self.idle_index], self.rect)
-  # does the animation using call count and some math to check if at end of loop.
+  # does the animation using call count and some math to check if at end of image loop.
   def update(self):
     if self.running and self.call_count % 3 == 0:
       self.running_index = (self.running_index + 1) % 2
@@ -369,14 +369,7 @@ def Start_Game():
         if chicken.idle:
           chicken.idle = False
 
-  
-    # Unseal once we have chicken, this function makes the background scroll
-    # Does most of the work for the running chicken Chicken.run() will mostly
-    # animate the chicken by iterating through the run images.
-    
-    
-    
-    # backgrounds.update()
+
     window.fill((0, 0, 0))
     backgrounds.draw()
     tree.draw()
