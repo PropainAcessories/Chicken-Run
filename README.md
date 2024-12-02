@@ -23,9 +23,13 @@
 
   ## Implementation
   🐔It is implmented by cloning the repository.
+  
   🐔Once you have cloned the repository install the packages.
+  
   🐔```python -m pip install -U pygame==2.6.0```
+  
   🐔Enter ```python main.py``` in the terminal to run the python file.
+  
 
   ## Usage
   🐔This is an academic group project for Python-202 at Calhoun Community College.
