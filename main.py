@@ -210,26 +210,25 @@ class Tree:
     self.rect_1.left -= int(self.speed)
     
     if self.rect_0.right < 0:
-      temp_position = self.rect_1.right = random.randrange(self.range_0, self.range_1)
+      temp_position = random.randrange(self.range_0, self.range_1)
+      
       
       if temp_position > SCREEN_WIDTH:
         self.rect_0.left = temp_position
       else:
         self.rect_0.left = SCREEN_WIDTH
       
-      temp_index = random.randrange(0, 5)
-      self.tree_image_0 = self.tree_images[temp_index]
-    
+      self.tree_image_0 = self.tree_images[random.randrange(0, 5)]
+      
     if self.rect_1.right < 0:
-      temp_position = self.rect_0.right = random.randrange(self.range_0, self.range_1)  
+      temp_position = random.randrange(self.range_0, self.range_1)  
         
       if temp_position > SCREEN_WIDTH:
         self.rect_1.left = temp_position
       else:
         self.rect_1.left = SCREEN_WIDTH
       
-      temp_index = random.randrange(0, 5)
-      self.tree_image_1 = self.tree_images[temp_index]
+      self.tree_image_1 = self.tree_images[random.randrange(0, 5)]
     
 class Chicken:
   def __init__(self):
