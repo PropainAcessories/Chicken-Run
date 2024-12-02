@@ -363,7 +363,12 @@ def Start_Game():
       if game_over:
         play_again = True
         run = False
-      # elif for jumping while chicken is alive
+      elif not chicken.jumping:
+        chicken.jumping = True
+        chicken.running = False
+        
+        if chicken.idle:
+          chicken.idle = False
 
   
     # Unseal once we have chicken, this function makes the background scroll
@@ -380,8 +385,16 @@ def Start_Game():
 
     if game_over:
       game_over_modal.draw()
-  # else will go here for the score, backgrounds, and obstacles to update
-  # As well as for speeds to change and to check collisions
+    else:
+      if not chicken.idle:
+        backgrounds.update()
+        tree.update()
+      chicken.update()
+      
+      if chicken.check_collision(tree.get_tree()):
+        game_over = True
+        game_over_modal.draw()
+        
     pygame.display.flip()
     
   return play_again
