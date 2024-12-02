@@ -14,7 +14,7 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-GROUND_HEIGHT = SCREEN_HEIGHT - 120
+GROUND_HEIGHT = SCREEN_HEIGHT - 190
 PLAY_GAME = True
 
 pygame.init()
@@ -234,9 +234,9 @@ class Tree:
 class Chicken:
   def __init__(self):
     # number of images, 220, 155
-    self.idle_chicken = load_sprites('Assets/chicken/', 'idle_')
-    self.running_chicken = load_sprites('Assets/chicken/', 'run_')
-    self.jumping_chicken = load_sprites('Assets/chicken/', 'jump_')
+    self.idle_chicken = load_sprites('Assets/chicken/', 'idle_', 2, 220, 155)
+    self.running_chicken = load_sprites('Assets/chicken/', 'run_', 2, 220, 155)
+    self.jumping_chicken = load_sprites('Assets/chicken/', 'jump_', 2, 220, 155)
     
     self.rect = self.idle_chicken[0].get_rect()
     
@@ -319,7 +319,7 @@ class Chicken:
         self.jumping_index = (self.jumping_index + 1) % 2
         
     elif self.idle and self.call_count % 3 == 0:
-      self.idle_index(self.idle_index + 1) % 2
+      self.idle_index = (self.idle_index + 1) % 2
       
     self.call_count = self.call_count + 1
     
