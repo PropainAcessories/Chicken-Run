@@ -232,13 +232,13 @@ class Tree:
     
 class Chicken:
   def __init__(self):
-    # number of images, 220, 155
+    # number of images, 220, 155, Can add more sprites for smoother animation
     self.idle_chicken = load_sprites('Assets/chicken/', 'idle_', 2, 220, 155)
     self.running_chicken = load_sprites('Assets/chicken/', 'run_', 2, 220, 155)
     self.jumping_chicken = load_sprites('Assets/chicken/', 'jump_', 2, 220, 155)
     
     self.rect = self.idle_chicken[0].get_rect()
-    
+    #bottom of the rectangle and left of chicken rectangle
     self.rect.bottom = GROUND_HEIGHT
     self.rect.left = 70
     #jump physics
@@ -246,7 +246,8 @@ class Chicken:
     self.jump_speed = 50
     self.gravity_up = 4
     self.gravity_down = 2
-    #indexes 
+    #indexes this keeps track of what image
+    #the sprite is on
     self.idle_index = 0
     self.running_index = 0
     self.jumping_index = 0
