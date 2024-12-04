@@ -7,21 +7,21 @@ import sys
 import random
 
 
-# kameron's comment
+
 
 # Something I found that places window in center of display
 os.environ['SDL_VIDEO_CENTERED'] = '1'
-
+# Constants
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 GROUND_HEIGHT = SCREEN_HEIGHT - 190
 PLAY_GAME = True
-
+# Globals and boilerplate
 pygame.init()
 window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Chicken Run')
-
 clock = pygame.time.Clock()
+# Constant, controls how many times per second the screen updates.
 FPS = 24
 #Possible audio later
 
