@@ -1,6 +1,6 @@
 import pygame.display, pygame.time, pygame.event, pygame.key, pygame.font, pygame.surface
 from pygame.locals import QUIT, K_SPACE, K_UP
-# imports EVERYTHING from pygame, will shrink later.
+
 import os
 import sys
 # Use for obstacle placement later
