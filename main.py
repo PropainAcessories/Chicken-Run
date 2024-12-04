@@ -1,6 +1,6 @@
-import pygame
-# imports EVERYTHING from pygame, will shrink later.
-from pygame.locals import *
+import pygame.display, pygame.time, pygame.event, pygame.key, pygame.font, pygame.surface
+from pygame.locals import QUIT, K_SPACE, K_UP
+
 import os
 import sys
 
