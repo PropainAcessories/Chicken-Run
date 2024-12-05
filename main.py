@@ -335,6 +335,54 @@ class Chicken:
     # add to call count  
     self.call_count = self.call_count + 1
     
+class Score:
+  def __init__(self):
+    self.high_score_image, self.rect_high = load_image('Assets/score/hiscore.png', 35, 35)
+    self.current_score_image, self.rect_current = load_image('Assets/score/currentScore.png', 35, 35)
+    # Positions High scores and current scores
+    self.rect_high.topright = (SCREEN_WIDTH - 15, 20)
+    self.rect_current.topright = (SCREEN_WIDTH - 15, 65)
+    # Score variables
+    self.high_score = 0
+    self.current_score = 0
+    
+    self.load()
+    # Boolean for achieving high score
+    self.high_score_achieved = False
+    # Amount of times object has been called
+    self.call_count = 0
+  
+  def count(self):
+    if self.call_count % 2 == 0:
+      self.current_score += 1
+      # If the high score is achieved set the current score to the high score
+      if self.high_score_achieved:
+        self.high_score = self.current_score
+        self.high_score_achieved = True
+    
+    self.call_count = self.call_count + 1
+  # Blits my images to the screen and draws my text
+  def draw(self):
+    window.blit(self.high_score_image, self.rect_high)
+    window.blit(self.current_score_image, self.rect_current)
+    
+    draw_text(str(self.high_score), 'Assets/font/monofonto.ttf', 28, (255, 255, 255), SCREEN_WIDTH - 60, 20, 'topright')
+    draw_text(str(self.current_score), 'Assets/font/monofonto.ttf', 28, (255, 255, 255), SCREEN_WIDTH - 60, 65, 'topright')
+    
+  def load(self):
+    # Loads the score
+    # If IO or value exception reset the score to 0
+    try:
+      with open('high_score.txt', 'r') as file:
+        self.high_score = int(file.read())
+    except (IOError, ValueError):
+      self.high_score = 0
+  # Saves the high score to a text file
+  def save(self):
+    if self.high_score_achieved:
+      with open('high_score.txt', 'w') as file:
+        file.write(str(self.high_score))
+    
     
 def Start_Game():
   # Booleans for loop
@@ -348,6 +396,7 @@ def Start_Game():
   chicken = Chicken()
   tree = Tree(game_speed)
   game_over_modal = GameOver()
+  score = Score()
   # Main gameplay loop.
   while run:
     clock.tick(FPS)
@@ -389,14 +438,23 @@ def Start_Game():
     backgrounds.draw()
     tree.draw()
     chicken.draw()
+    score.draw()
     # Game is over
     if game_over:
       game_over_modal.draw()
     else:
     # Run the game if the chicken is not idle
       if not chicken.idle:
+        score.count()
         backgrounds.update()
         tree.update()
+        # Increase the speed as the score gets higher
+        if score.current_score % 120 == 0:
+          game_speed += 0.5
+          backgrounds.update_speed(game_speed)
+          tree.update_speed(game_speed)
+          chicken.jump_speed += 5
+          
       chicken.update()
       # End the game if you hit a tree
       if chicken.check_collision(tree.get_tree()):
