@@ -389,7 +389,7 @@ def Start_Game():
     backgrounds.draw()
     tree.draw()
     chicken.draw()
-    # Game over
+    # Game is over
     if game_over:
       game_over_modal.draw()
     else:
