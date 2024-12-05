@@ -460,6 +460,7 @@ def Start_Game():
       if chicken.check_collision(tree.get_tree()):
         game_over = True
         game_over_modal.draw()
+        score.save()
         
     pygame.display.flip()
     
