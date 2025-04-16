@@ -238,9 +238,9 @@ class Tree:
 class Chicken:
   def __init__(self):
     # number of images, 220, 155, Can add more sprites for smoother animation
-    self.idle_chicken = load_sprites('Assets/chicken/', 'idle_', 2, 220, 155)
-    self.running_chicken = load_sprites('Assets/chicken/', 'run_', 2, 220, 155)
-    self.jumping_chicken = load_sprites('Assets/chicken/', 'jump_', 2, 220, 155)
+    self.idle_chicken = load_sprites('Assets/chicken/', 'idle', 2, 220, 155)
+    self.running_chicken = load_sprites('Assets/chicken/', 'run', 2, 220, 155)
+    self.jumping_chicken = load_sprites('Assets/chicken/', 'jump', 2, 220, 155)
     
     self.rect = self.idle_chicken[0].get_rect()
     #bottom of the rectangle and left of chicken rectangle
